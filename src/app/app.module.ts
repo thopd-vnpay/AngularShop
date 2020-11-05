@@ -11,6 +11,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { ConfirmationDialogComponent } from './day1/confirmation-dialog/confirmation-dialog.component';
+import { KabanaBoardComponent } from './kabana-board/kabana-board.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,8 @@ import { ConfirmationDialogComponent } from './day1/confirmation-dialog/confirma
     Day1Component,
     HeaderComponent,
     BodyComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    KabanaBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,10 @@ import { ConfirmationDialogComponent } from './day1/confirmation-dialog/confirma
     BrowserModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatListModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

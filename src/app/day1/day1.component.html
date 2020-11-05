@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <app-header></app-header>
-  <app-body></app-body>
+<app-header></app-header>
+<app-body [products]="products" [subtotal]="subTotal" [totalItem]="totalItems"
+          (onRemoveProduct)="hanleRemoveProduct($event)"
+          (onUpdateProduct)="hanleUpdateProduct($event)"
+></app-body>
+<!--[price1] = "price1" truyen qua gia tri thuoc tinh
+//price2 = "price1" truyen truc tiep -->
 </html>

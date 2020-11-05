@@ -8,77 +8,39 @@
       <li>Shopping Cart</li>
     </ul>
 
-    <span class="count">{{item1+item2}} items in the bag</span>
+    <span class="count">{{totalItem}} items in the bag</span>
   </header>
 
   <section class="container">
     <ul class="products">
-      <li class="row">
+      <li class="row" *ngFor="let item of products">
         <div class="col left">
           <div class="thumbnail">
             <a href="#">
-              <img src="https://via.placeholder.com/200x150" alt="" />
+              <img [src]="item.image" alt="" />
             </a>
           </div>
           <div class="detail">
-            <div class="name"><a href="#">PRODUCT ITEM NUMBER 1</a></div>
-            <div class="description">
-              Description for product item number 1
+            <div class="name">
+              <a href="#">{{ item.name }}</a>
             </div>
-            <div class="price">${{price1}}</div>
+            <div class="description">{{ item.desciption }}</div>
+            <div class="price">{{ item.price | currency: "VND" }}</div>
           </div>
         </div>
 
         <div class="col right">
           <div class="quantity">
-            <input [(ngModel)]="item1" type="number" class="quantity" step="1" value="2" />
-          </div>
-
-          <div class="remove" >
-            <button mat-button (click)="openDialog()">Delete</button>
-            <!--<svg
-              version="1.1"
-              class="close"
-              xmlns="//www.w3.org/2000/svg"
-              xmlns:xlink="//www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              viewBox="0 0 60 60"
-              enable-background="new 0 0 60 60"
-              xml:space="preserve"
-            >
-                  <polygon
-                    points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"
-                  ></polygon>
-                </svg> -->
-          </div>
-        </div>
-      </li>
-
-      <li class="row">
-        <div class="col left">
-          <div class="thumbnail">
-            <a href="#">
-              <img src="https://via.placeholder.com/200x150" alt="" />
-            </a>
-          </div>
-          <div class="detail">
-            <div class="name"><a href="#">PRODUCT ITEM NUMBER 2</a></div>
-            <div class="description">
-              Description for product item number 2
-            </div>
-            <div class="price">${{price2}}</div>
-          </div>
-        </div>
-
-        <div class="col right">
-          <div class="quantity">
-            <input [(ngModel)]="item2" type="number" class="quantity" step="1" value="1" />
+            <input
+              type="number"
+              class="quantity"
+              step="1" [(ngModel)]="item.quantity"
+              (input)="updateProduct(item)"
+            />
           </div>
 
           <div class="remove">
-            <button mat-button (click)="openDialog()">Delete</button>
-            <!--<svg
+            <svg
               version="1.1"
               class="close"
               xmlns="//www.w3.org/2000/svg"
@@ -88,11 +50,12 @@
               viewBox="0 0 60 60"
               enable-background="new 0 0 60 60"
               xml:space="preserve"
+              (click)="removeProduct(item.id)"
             >
-                  <polygon
-                    points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"
-                  ></polygon>
-                </svg> -->
+            <polygon
+              points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"
+            ></polygon>
+          </svg>
           </div>
         </div>
       </li>
@@ -107,9 +70,9 @@
 
     <div class="summary">
       <ul>
-        <li>Subtotal <span>{{item1*price1+item2*price2}}</span></li>
-        <li>Tax <span>${{(item1*price1+item2*price2)*0.1| number:'1.2-2'}}</span></li>
-        <li class="total">Total <span>${{(item1*price1+item2*price2)+(item1*price1+item2*price2)*0.1| number:'1.2-2'}}</span></li>
+        <li>Subtotal <span>{{subtotal}}</span></li>
+        <li>Tax <span>{{subtotal*0.1|currency}}</span></li>
+        <li class="total">Total <span>{{(subtotal)+(subtotal*0.1)|currency}}</span></li>
       </ul>
     </div>
 

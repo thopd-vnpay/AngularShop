@@ -1,29 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output,EventEmitter} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {Product} from '../product';
+
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
-  price1: number = 4.23;
-  price2: number = 5.49;
-  item1: number = 1;
-  item2: number = 1;
+  @Input() totalItem: number;
+  @Input() subtotal: number;
+  @Input() products: Product[];
   title = 'angular-confirmation-dialog';
-  constructor(public dialog: MatDialog) {}
-    openDialog(): void {
+
+  @Output() onRemoveProduct = new EventEmitter();
+  @Output() onUpdateProduct = new EventEmitter();
+  constructor(public dialog: MatDialog) {
+  }
+
+  openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
-      data: "Do you confirm the deletion of this data?"
+      data: 'Do you confirm the deletion of this data?'
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         console.log('Yes clicked');
         // DO SOMETHING
       }
     });
+  }
+  removeProduct(id: number) {
+    this.onRemoveProduct.emit(id);
+  }
+  updateProduct(products: Product) {
+    this.onUpdateProduct.emit(products);
   }
   ngOnInit(): void {
   }
