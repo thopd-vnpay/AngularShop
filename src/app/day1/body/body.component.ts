@@ -11,11 +11,15 @@ import {Product} from '../product';
 export class BodyComponent implements OnInit {
   @Input() totalItem: number;
   @Input() subtotal: number;
+  @Input() promoCode: string;
+  @Input() discount: number;
   @Input() products: Product[];
   title = 'angular-confirmation-dialog';
 
   @Output() onRemoveProduct = new EventEmitter();
   @Output() onUpdateProduct = new EventEmitter();
+  @Output() onReloadProduct = new EventEmitter();
+  @Output() onPromoCode = new EventEmitter();
   constructor(public dialog: MatDialog) {
   }
 
@@ -31,8 +35,14 @@ export class BodyComponent implements OnInit {
       }
     });
   }
+  reloadProduct() {
+    this.onReloadProduct.emit();
+  }
   removeProduct(id: number) {
     this.onRemoveProduct.emit(id);
+  }
+  getPromoCode(code: string) {
+    this.onPromoCode.emit(code);
   }
   updateProduct(products: Product) {
     this.onUpdateProduct.emit(products);
